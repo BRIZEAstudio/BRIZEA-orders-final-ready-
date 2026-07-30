@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRIZEA — Place an Order</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --ink:#2B2420;
+    --parchment:#EDE6D3;
+    --parchment-deep:#E1D8BF;
+    --wine:#6B2737;
+    --wine-deep:#511E2A;
+    --ochre:#B8863B;
+    --sage:#55624A;
+    --rose:#B4776A;
+    --paper-line: rgba(43,36,32,0.18);
+    --shadow: 0 1px 0 rgba(43,36,32,0.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(184,134,59,0.08), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(107,39,55,0.07), transparent 55%),
+      var(--parchment);
+    color:var(--ink);
+    font-family:'EB Garamond', serif;
+    font-size:17px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--wine);}
+  .wrap{max-width:660px;margin:0 auto;padding:36px 20px 80px;}
+
+  header{text-align:center;margin-bottom:34px;position:relative;}
+  .eyebrow{
+    font-family:'Special Elite', monospace;
+    font-size:11px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--wine);
+    opacity:0.85;
+  }
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:52px;
+    margin:6px 0 4px;
+    letter-spacing:0.02em;
+  }
+  .tagline{
+    font-style:italic;
+    font-size:16px;
+    color:var(--ink);
+    opacity:0.72;
+  }
+  .rule{
+    width:120px;height:1px;margin:18px auto 0;
+    background:linear-gradient(90deg, transparent, var(--ochre), transparent);
+  }
+
+  .thread-box{
+    margin:28px 0 8px;
+    padding:18px 16px 14px;
+    background:rgba(255,255,255,0.35);
+    border:1px solid var(--paper-line);
+    border-radius:2px;
+  }
+  .thread-label{
+    font-family:'Special Elite', monospace;
+    font-size:10.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--sage);
+    margin-bottom:10px;
+  }
+  .thread{
+    position:relative;
+    height:34px;
+    display:flex;
+    align-items:center;
+    gap:0;
+  }
+  .thread::before{
+    content:"";
+    position:absolute;
+    left:0;right:0;top:50%;
+    height:1px;
+    background:var(--ink);
+    opacity:0.25;
+    transform:translateY(-50%);
+  }
+  .bead{
+    width:20px;height:20px;border-radius:50%;
+    margin-right:-4px;
+    border:1.5px solid rgba(43,36,32,0.35);
+    box-shadow: 0 1px 2px rgba(43,36,32,0.25);
+    position:relative;
+    animation: drop 0.35s ease;
+    flex-shrink:0;
+  }
+  @keyframes drop{ from{transform:translateY(-10px); opacity:0;} to{transform:translateY(0); opacity:1;} }
+  .thread-empty{font-style:italic;opacity:0.5;font-size:14px;}
+
+  section{margin-top:38px;}
+  .section-head{
+    display:flex;align-items:baseline;gap:10px;margin-bottom:16px;
+    border-bottom:1px solid var(--paper-line);
+    padding-bottom:8px;
+  }
+  .section-num{
+    font-family:'Special Elite', monospace;
+    font-size:12px;color:var(--ochre);
+  }
+  h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:26px;
+    margin:0;
+  }
+  .section-note{font-size:13.5px; font-style:italic; opacity:0.65; margin:-8px 0 16px;}
+
+  .collection{
+    background:rgba(255,255,255,0.4);
+    border:1px solid var(--paper-line);
+    border-radius:3px;
+    padding:16px 18px;
+    margin-bottom:14px;
+  }
+  .collection-img{
+    width:100%; max-height:190px; object-fit:cover; border-radius:2px; margin-bottom:12px; display:block;
+  }
+  .collection-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;
+  }
+  .collection-name{font-family:'Cormorant Garamond', serif; font-weight:600; font-size:20px;}
+  .collection-poem{font-style:italic; font-size:13.5px; opacity:0.65; margin:2px 0 0;}
+  .tier-price{font-family:'Special Elite', monospace; font-size:14px; color:var(--wine); white-space:nowrap;}
+  .qty-stepper{display:flex; align-items:center; gap:0;}
+  .qty-stepper button{
+    width:26px;height:26px;border:1px solid var(--ink);background:transparent;
+    color:var(--ink); font-size:15px; cursor:pointer; border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    transition:background 0.15s;
+  }
+  .qty-stepper button:hover{background:var(--ink); color:var(--parchment);}
+  .qty-stepper span{width:28px;text-align:center;font-family:'Special Elite',monospace;font-size:14px;}
+
+  .letter-option{
+    display:flex; align-items:flex-start; gap:10px; padding:10px 0;
+    border-top:1px dashed var(--paper-line); font-size:15px; cursor:pointer;
+  }
+  .letter-option:first-of-type{border-top:none;}
+  .letter-option input{margin-top:4px;}
+  #letterMessage{min-height:120px;}
+
+  .field{margin-bottom:16px;}
+  label{display:block; font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase; font-family:'Special Elite', monospace; color:var(--sage); margin-bottom:6px;}
+  input[type=text], input[type=email], input[type=tel], textarea, select{
+    width:100%; padding:10px 12px; border:1px solid var(--paper-line);
+    background:rgba(255,255,255,0.55); font-family:'EB Garamond', serif; font-size:16px;
+    color:var(--ink); border-radius:2px; outline:none;
+  }
+  input:focus, textarea:focus, select:focus{border-color:var(--wine); box-shadow:0 0 0 3px rgba(107,39,55,0.1);}
+  textarea{resize:vertical; min-height:70px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:520px){ .grid2{grid-template-columns:1fr;} }
+
+  .total-box{
+    margin-top:30px;
+    padding:20px;
+    border:1.5px solid var(--ink);
+    border-radius:3px;
+    background:rgba(255,255,255,0.5);
+  }
+  .total-line{display:flex; justify-content:space-between; font-size:15px; padding:5px 0; opacity:0.8;}
+  .total-line.grand{
+    border-top:1px solid var(--ink); margin-top:8px; padding-top:12px;
+    font-family:'Cormorant Garamond', serif; font-size:26px; font-weight:600; opacity:1;
+  }
+
+  .pay-options{display:flex; gap:10px; margin-bottom:18px;}
+  .pay-toggle{
+    flex:1; padding:10px 12px; text-align:center; border:1px solid var(--ink);
+    border-radius:2px; cursor:pointer; font-family:'Special Elite', monospace; font-size:12px;
+    letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .pay-toggle.active{background:var(--wine); color:var(--parchment); border-color:var(--wine);}
+  #qrPanel{text-align:center; padding:20px 0 6px;}
+  #qrcode{display:inline-block; padding:12px; background:#fff; border-radius:4px; box-shadow:var(--shadow);}
+  .qr-amount{font-family:'Special Elite', monospace; margin-top:10px; font-size:14px;}
+  .qr-hint{font-size:13px; font-style:italic; opacity:0.65; margin-top:6px;}
+  .cod-note{font-size:14px; font-style:italic; opacity:0.75; padding:14px 0;}
+
+  .policy-box{
+    max-height:230px; overflow-y:auto; padding:14px 16px;
+    background:rgba(255,255,255,0.4); border:1px solid var(--paper-line);
+    border-radius:3px; font-size:13.5px; line-height:1.55;
+  }
+  .policy-box p{margin:0 0 12px;}
+  .checkbox-row{display:flex; align-items:flex-start; gap:10px; margin-top:14px; font-size:14px; cursor:pointer;}
+  .checkbox-row input{margin-top:3px;}
+
+  .seal-btn{
+    display:block; width:100%; margin-top:26px; padding:16px;
+    background:var(--wine); color:var(--parchment); border:none; border-radius:3px;
+    font-family:'Cormorant Garamond', serif; font-size:20px; font-weight:600;
+    letter-spacing:0.03em; cursor:pointer; transition:background 0.2s, transform 0.1s;
+  }
+  .seal-btn:hover{background:var(--wine-deep);}
+  .seal-btn:active{transform:scale(0.99);}
+  .seal-btn:disabled{opacity:0.5; cursor:not-allowed;}
+  .status-msg{margin-top:12px; font-size:14px; text-align:center; min-height:20px;}
+
+  #confirmCard{
+    display:none; margin-top:26px; padding:26px;
+    background:rgba(255,255,255,0.55); border:1px solid var(--ink); border-radius:3px;
+    text-align:center;
+    position:relative;
+  }
+  #confirmCard::before{
+    content:"✦";
+    display:block; font-size:22px; color:var(--ochre); margin-bottom:8px;
+  }
+  #confirmCard h3{font-family:'Cormorant Garamond', serif; font-size:24px; margin:0 0 6px;}
+  #confirmCard p{font-size:14.5px; opacity:0.8; margin:4px 0;}
+  .confirm-actions{margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+  .confirm-actions a{
+    font-family:'Special Elite', monospace; font-size:12px; text-decoration:none;
+    border:1px solid var(--ink); padding:9px 16px; border-radius:2px; color:var(--ink);
+  }
+  .confirm-actions a:hover{background:var(--ink); color:var(--parchment);}
+
+  footer{margin-top:50px; text-align:center; font-size:12px; opacity:0.55;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Handmade &middot; Made to Order</div>
+    <h1>BRIZEA</h1>
+    <div class="tagline">keepsakes &amp; letters, for the hopelessly sentimental</div>
+    <div class="rule"></div>
+  </header>
+
+  <div class="thread-box">
+    <div class="thread-label">Your order, as you build it</div>
+    <div class="thread" id="thread">
+      <span class="thread-empty">nothing chosen yet — pick a collection below</span>
+    </div>
+  </div>
+
+  <!-- ================= COLLECTIONS ================= -->
+  <section>
+    <div class="section-head"><span class="section-num">I.</span><h2>Keepsake Bracelets</h2></div>
+    <div class="section-note">Each collection is handcrafted in small batches.</div>
+    <div id="collections"></div>
+  </section>
+
+  <!-- ================= LETTERS ================= -->
+  <section>
+    <div class="section-head"><span class="section-num">II.</span><h2>Letter Writing</h2></div>
+    <div class="section-note">Handwritten on premium paper. Choose a length, then write your message below.</div>
+    <div class="collection" id="letters"></div>
+  </section>
+
+  <!-- ================= DETAILS ================= -->
+  <section>
+    <div class="section-head"><span class="section-num">III.</span><h2>Your Details</h2></div>
+    <div class="field">
+      <label>Full name</label>
+      <input type="text" id="custName" required>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label>Phone (for delivery updates)</label>
+        <input type="tel" id="custPhone" required>
+      </div>
+      <div class="field">
+        <label>Email (for order confirmation)</label>
+        <input type="email" id="custEmail" required>
+      </div>
+    </div>
+    <div class="field">
+      <label>Delivery address</label>
+      <textarea id="custAddress" required placeholder="House/street, locality, city, state"></textarea>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label>Pincode</label>
+        <input type="text" id="custPincode" required>
+        <div id="pincodeHint" class="section-note" style="margin:6px 0 0;"></div>
+      </div>
+      <div class="field">
+        <label>Note for us (optional)</label>
+        <input type="text" id="custNote" placeholder="e.g. gift wrap">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TOTAL ================= -->
+  <div class="total-box">
+    <div class="total-line"><span>Items</span><span id="sumItems">₹0</span></div>
+    <div class="total-line"><span id="shipLabel">Shipping</span><span id="sumShip">₹0</span></div>
+    <div class="total-line grand"><span>Total</span><span id="sumTotal">₹0</span></div>
+  </div>
+
+  <!-- ================= PAYMENT ================= -->
+  <section>
+    <div class="section-head"><span class="section-num">IV.</span><h2>Payment</h2></div>
+    <div class="pay-options">
+      <div class="pay-toggle active" id="toggleUpi" onclick="setPayMode('upi')">Pay by UPI</div>
+      <div class="pay-toggle" id="toggleCod" onclick="setPayMode('cod')">Cash on Delivery</div>
+    </div>
+    <div id="qrPanel">
+      <div id="qrcode"></div>
+      <div class="qr-amount">Scan &amp; pay <span id="qrAmountText">₹0</span></div>
+      <div class="qr-hint">Opens your UPI app on mobile, or scan with any UPI app.</div>
+    </div>
+    <div id="codPanel" class="cod-note" style="display:none;">
+      Pay in cash when your order is delivered. A small COD fee may apply depending on the courier.
+    </div>
+  </section>
+
+  <!-- ================= POLICIES ================= -->
+  <section>
+    <div class="section-head"><span class="section-num">V.</span><h2>Policies</h2></div>
+    <div class="policy-box">
+      <p>At BRIZEA, every keepsake and letter is handcrafted with care and created specifically for you. By placing an order with BRIZEA, you acknowledge that you have read and agreed to the following policies.</p>
+      <p><strong>1. Customer Responsibility</strong><br>
+      The customer is responsible for providing accurate names, messages, addresses, contact details, and all other information required to complete the order.<br>
+      BRIZEA is not responsible for delays, failed deliveries, or additional shipping costs resulting from incorrect or incomplete information provided by the customer.</p>
+      <p><strong>2. Consent &amp; Ethical Use</strong><br>
+      By placing an order, you confirm that you have the right and permission to provide all names, stories, photographs, messages, and personal information submitted with your order.<br>
+      BRIZEA reserves the right to refuse or cancel any order that appears to involve harassment, stalking, unwanted contact, impersonation, deception, or any other unethical or unlawful purpose.</p>
+      <p><strong>3. Acceptable Content</strong><br>
+      BRIZEA does not create or reproduce content that includes: harassment or bullying; hate speech or discrimination; threats or intimidation; defamatory or abusive content; explicit sexual content; illegal or fraudulent material; fake legal or official documents; content intended to impersonate another identifiable person without permission; copyrighted material submitted without authorization.</p>
+      <p><strong>4. Handmade Nature of Our Products</strong><br>
+      Every BRIZEA product is individually handcrafted. Minor variations in handwriting, bracelet arrangement, ribbon flowers, packaging, or other handmade elements are a natural part of the crafting process and make every piece unique.</p>
+      <p><strong>5. Personalized Orders</strong><br>
+      All BRIZEA products are made specifically for each customer. Because of their personalized nature, orders cannot be returned, exchanged, or refunded unless: the wrong item was sent; the item arrived significantly damaged; or an error was made by BRIZEA during production.</p>
+      <p><strong>6. Creative Discretion</strong><br>
+      For custom poems, personalized writing, and Soulscript letters, creative style, wording, tone, and artistic expression remain at BRIZEA's discretion while staying faithful to the customer's story and request.</p>
+      <p><strong>7. Shipping &amp; Delivery</strong><br>
+      Once an order has been dispatched, delivery times depend on the courier partner. BRIZEA is not responsible for delays caused by courier services, weather conditions, strikes, transportation disruptions, or other circumstances beyond our reasonable control.</p>
+      <p><strong>8. Privacy</strong><br>
+      The personal stories, photographs, names, messages, and information you share with BRIZEA will be used solely for creating and fulfilling your order. Your information will never be shared publicly without your permission unless required by law.</p>
+      <p><strong>9. Intellectual Property</strong><br>
+      All original poems, Soulscript letters, product descriptions, branding, photographs, designs, and creative content produced by BRIZEA remain the intellectual property of BRIZEA unless otherwise agreed in writing.</p>
+      <p><strong>10. Right to Decline Orders</strong><br>
+      BRIZEA reserves the right to decline, cancel, or refuse any order that is unlawful, unethical, misleading, unsafe, or inconsistent with the values of the brand.</p>
+      <p><strong>11. Policy Updates</strong><br>
+      These policies may be updated from time to time. The version available at the time an order is placed will apply to that order.</p>
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="policyAgree">
+      <span>I have read and agree to BRIZEA's policies above.</span>
+    </label>
+  </section>
+
+  <button class="seal-btn" id="submitBtn" onclick="submitOrder()">Place Order</button>
+  <div class="status-msg" id="statusMsg"></div>
+
+  <div id="confirmCard">
+    <h3>Order received</h3>
+    <p id="confirmOrderId"></p>
+    <p>A confirmation has been sent to your email. We'll reach out on WhatsApp/phone before shipping.</p>
+    <div class="confirm-actions">
+      <a href="#" id="waConfirmLink" target="_blank">Confirm on WhatsApp</a>
+    </div>
+  </div>
+
+  <footer>
+    BRIZEA &middot; Shipped via Shiprocket
+  </footer>
+
+</div>
+
+<script>
+/* ======================================================================
+   EDIT THESE — everything you need to personalise lives in this block
+   ====================================================================== */
+const CONFIG = {
+  // Your UPI ID, e.g. "brizea@okhdfcbank" or your phone-linked UPI ID
+  UPI_ID: "YOUR_UPI_ID@bank",
+  // Name that should show up in the customer's UPI app when they pay
+  PAYEE_NAME: "BRIZEA",
+  // Your WhatsApp number in international format, no +, no spaces, e.g. "919812345678"
+  WHATSAPP_NUMBER: "91XXXXXXXXXX",
+  // Flat shipping fee in rupees. Set to 0 if you want free shipping.
+  SHIPPING_FEE: 49,
+  // Order total (in rupees) at or above which shipping becomes free. Set to null to disable.
+  FREE_SHIPPING_ABOVE: 499,
+  // Set to true to only accept orders with a Kerala delivery pincode.
+  KERALA_ONLY: true,
+  // Paste the Web App URL you get after deploying the Apps Script (see setup guide).
+  APPS_SCRIPT_URL: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
+};
+
+// Bracelet collections. Rename/reprice freely.
+// "image" is a filename — upload a photo with this exact name to the same
+// GitHub repo and it'll show automatically. If it's missing, nothing breaks.
+const COLLECTIONS = [
+  { id:"aurora",    name:"Aurora Collection",    subtitle:"Bundle of 6",   price:120, color:"#6B2737", image:"aurora.jpg" },
+  { id:"seaside",   name:"Seaside Collection",   subtitle:"Summer Tide",   price:80,  color:"#55624A", image:"seaside.jpg" },
+  { id:"starlight", name:"Starlight Collection", subtitle:"Constellation", price:99,  color:"#B8863B", image:"starlight.jpg" },
+];
+
+// Letter writing tiers. wordLimit is enforced on the message box.
+const LETTER_TIERS = [
+  { id:"l199", label:"1 handwritten A4 page",        wordRange:"approx. 250–350 words",   price:199, wordLimit:350 },
+  { id:"l299", label:"Up to 3 handwritten A4 pages",  wordRange:"approx. 750–1,050 words", price:299, wordLimit:1050 },
+];
+
+/* ====================== everything below just runs the page ====================== */
+
+const state = { items:{} }; // key -> {label, price, qty, color}
+let currentLetterTier = null;
+
+function buildCollections(){
+  const wrap = document.getElementById('collections');
+  COLLECTIONS.forEach(col=>{
+    const card = document.createElement('div');
+    card.className = 'collection';
+    card.innerHTML = `
+      <img src="${col.image}" class="collection-img" alt="${col.name}" onerror="this.style.display='none'">
+      <div class="collection-top">
+        <div>
+          <div class="collection-name">${col.name}</div>
+          <div class="collection-poem">${col.subtitle}</div>
+        </div>
+        <span class="tier-price">₹${col.price}</span>
+      </div>
+      <div class="qty-stepper" style="margin-top:12px;">
+        <button onclick="changeQty('${col.id}', -1, '${col.name}', ${col.price}, '${col.color}')">−</button>
+        <span id="qty-${col.id}">0</span>
+        <button onclick="changeQty('${col.id}', 1, '${col.name}', ${col.price}, '${col.color}')">+</button>
+      </div>
+    `;
+    wrap.appendChild(card);
+  });
+}
+
+function buildLetters(){
+  const wrap = document.getElementById('letters');
+  let optionsHtml = `
+    <img src="letters.jpg" class="collection-img" alt="Letter writing" onerror="this.style.display='none'">
+    <label class="letter-option">
+      <input type="radio" name="letterTier" value="none" checked onchange="selectLetterTier(null)">
+      <span>No letter — bracelets only</span>
+    </label>`;
+  LETTER_TIERS.forEach(t=>{
+    optionsHtml += `
+      <label class="letter-option">
+        <input type="radio" name="letterTier" value="${t.id}" onchange="selectLetterTier('${t.id}')">
+        <span><strong>₹${t.price}</strong> — ${t.label} <em>(${t.wordRange})</em></span>
+      </label>`;
+  });
+  wrap.innerHTML = `
+    ${optionsHtml}
+    <div id="letterMessageBox" style="display:none;">
+      <div class="section-note" style="margin:14px 0 8px;">Submitted text may be lightly edited for grammar, spelling, punctuation, readability, or formatting — unless you ask us to keep it exactly as written.</div>
+      <textarea id="letterMessage" placeholder="Write the message you'd like handwritten..." oninput="updateWordCount()"></textarea>
+      <div id="wordCountLabel" class="section-note" style="margin:6px 0 0;">0 words</div>
+    </div>
+  `;
+}
+
+function selectLetterTier(id){
+  Object.keys(state.items).forEach(k=>{ if(k.startsWith('letter__')) delete state.items[k]; });
+  currentLetterTier = id ? LETTER_TIERS.find(t=>t.id===id) : null;
+  const box = document.getElementById('letterMessageBox');
+  if(!currentLetterTier){
+    box.style.display = 'none';
+  } else {
+    box.style.display = 'block';
+    state.items['letter__'+currentLetterTier.id] = { label: currentLetterTier.label, price: currentLetterTier.price, qty: 1, color: '#6B2737' };
+    updateWordCount();
+  }
+  renderThread();
+  renderTotals();
+}
+
+function updateWordCount(){
+  const label = document.getElementById('wordCountLabel');
+  const text = document.getElementById('letterMessage').value.trim();
+  const words = text ? text.split(/\s+/).length : 0;
+  const limit = currentLetterTier ? currentLetterTier.wordLimit : 0;
+  label.textContent = `${words} / ${limit} words`;
+  label.style.color = words > limit ? '#6B2737' : '';
+  label.style.opacity = words > limit ? '1' : '0.65';
+}
+
+function changeQty(key, delta, label, price, color){
+  const current = state.items[key] || {label, price, qty:0, color};
+  current.qty = Math.max(0, current.qty + delta);
+  if(current.qty === 0){ delete state.items[key]; }
+  else { state.items[key] = current; }
+  document.getElementById(`qty-${key}`).textContent = current.qty || 0;
+  renderThread();
+  renderTotals();
+}
+
+function renderThread(){
+  const thread = document.getElementById('thread');
+  const beads = [];
+  Object.values(state.items).forEach(item=>{
+    for(let i=0;i<item.qty;i++){ beads.push(item.color); }
+  });
+  if(beads.length === 0){
+    thread.innerHTML = '<span class="thread-empty">nothing chosen yet — pick a collection below</span>';
+    return;
+  }
+  thread.innerHTML = beads.map(c=>`<div class="bead" style="background:${c}"></div>`).join('');
+}
+
+function itemsTotal(){
+  return Object.values(state.items).reduce((s,i)=>s + i.price*i.qty, 0);
+}
+
+function shippingFee(items){
+  if(items === 0) return 0;
+  if(CONFIG.FREE_SHIPPING_ABOVE !== null && items >= CONFIG.FREE_SHIPPING_ABOVE) return 0;
+  return CONFIG.SHIPPING_FEE;
+}
+
+let payMode = 'upi';
+function setPayMode(mode){
+  payMode = mode;
+  document.getElementById('toggleUpi').classList.toggle('active', mode==='upi');
+  document.getElementById('toggleCod').classList.toggle('active', mode==='cod');
+  document.getElementById('qrPanel').style.display = mode==='upi' ? 'block' : 'none';
+  document.getElementById('codPanel').style.display = mode==='cod' ? 'block' : 'none';
+}
+
+function renderTotals(){
+  const items = itemsTotal();
+  const ship = shippingFee(items);
+  const total = items + ship;
+  document.getElementById('sumItems').textContent = `₹${items}`;
+  document.getElementById('sumShip').textContent = ship===0 ? 'Free' : `₹${ship}`;
+  document.getElementById('sumTotal').textContent = `₹${total}`;
+  document.getElementById('qrAmountText').textContent = `₹${total}`;
+
+  const upiString = `upi://pay?pa=${encodeURIComponent(CONFIG.UPI_ID)}&pn=${encodeURIComponent(CONFIG.PAYEE_NAME)}&am=${total>0?total:''}&cu=INR&tn=${encodeURIComponent('BRIZEA order')}`;
+  const qrDiv = document.getElementById('qrcode');
+  qrDiv.innerHTML = '';
+  if(total > 0){
+    new QRCode(qrDiv, { text: upiString, width:170, height:170, colorDark:"#2B2420", colorLight:"#ffffff" });
+  } else {
+    qrDiv.innerHTML = '<div style="width:170px;height:170px;display:flex;align-items:center;justify-content:center;font-size:13px;opacity:0.5;">add items to generate QR</div>';
+  }
+}
+
+function genOrderId(){
+  const d = new Date();
+  return 'BRZ' + d.getFullYear().toString().slice(-2) + (d.getMonth()+1).toString().padStart(2,'0') + d.getDate().toString().padStart(2,'0') + '-' + Math.floor(1000+Math.random()*9000);
+}
+
+async function submitOrder(){
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const email = document.getElementById('custEmail').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const pincode = document.getElementById('custPincode').value.trim();
+  const note = document.getElementById('custNote').value.trim();
+  const items = itemsTotal();
+  const status = document.getElementById('statusMsg');
+
+  if(items === 0){ status.textContent = 'Please choose at least one item.'; return; }
+  if(!name || !phone || !email || !address || !pincode){
+    status.textContent = 'Please fill in all your details.'; return;
+  }
+  if(CONFIG.KERALA_ONLY){
+    const keralaPrefixes = ['67','68','69'];
+    const prefix = pincode.trim().slice(0,2);
+    if(!keralaPrefixes.includes(prefix)){
+      status.textContent = "Sorry — we're currently only able to ship within Kerala.";
+      return;
+    }
+  }
+
+  let letterMessageText = '';
+  if(currentLetterTier){
+    letterMessageText = document.getElementById('letterMessage').value.trim();
+    const words = letterMessageText ? letterMessageText.split(/\s+/).length : 0;
+    if(!letterMessageText){ status.textContent = 'Please write your letter message.'; return; }
+    if(words > currentLetterTier.wordLimit){
+      status.textContent = `Your letter message is over the ${currentLetterTier.wordLimit}-word limit for this tier.`;
+      return;
+    }
+  }
+
+  if(!document.getElementById('policyAgree').checked){
+    status.textContent = 'Please agree to our policies before placing your order.';
+    return;
+  }
+
+  const orderId = genOrderId();
+  const ship = shippingFee(items);
+  const total = items + ship;
+  const itemLines = Object.entries(state.items).map(([key,i])=>{
+    if(key.startsWith('letter__') && letterMessageText){
+      return `${i.label} — ₹${i.price} | Message: "${letterMessageText}"`;
+    }
+    return `${i.label} x${i.qty} — ₹${i.price*i.qty}`;
+  });
+
+  const payload = {
+    orderId, name, phone, email, address, pincode, note,
+    items: itemLines, itemsTotal: items, shipping: ship, total,
+    paymentMode: payMode==='upi' ? 'UPI' : 'Cash on Delivery',
+    timestamp: new Date().toISOString()
+  };
+
+  document.getElementById('submitBtn').disabled = true;
+  status.textContent = 'Placing your order…';
+
+  try{
+    if(CONFIG.APPS_SCRIPT_URL && !CONFIG.APPS_SCRIPT_URL.startsWith('PASTE_')){
+      await fetch(CONFIG.APPS_SCRIPT_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify(payload)
+      });
+    }
+    status.textContent = '';
+    showConfirmation(orderId, payload, itemLines);
+  }catch(err){
+    status.textContent = 'Order recorded, but the automatic confirmation had an issue — we still have your details below.';
+    showConfirmation(orderId, payload, itemLines);
+  }
+}
+
+function showConfirmation(orderId, payload, itemLines){
+  document.getElementById('confirmOrderId').textContent = `Order #${orderId} · ₹${payload.total}`;
+  const waText = encodeURIComponent(
+    `Hi BRIZEA! I just placed order #${orderId}.\n${itemLines.join('\n')}\nTotal: ₹${payload.total} (${payload.paymentMode})\nName: ${payload.name}\nAddress: ${payload.address}, ${payload.pincode}`
+  );
+  document.getElementById('waConfirmLink').href = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waText}`;
+  document.getElementById('confirmCard').style.display = 'block';
+  document.getElementById('confirmCard').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+// init
+if(CONFIG.KERALA_ONLY){
+  document.getElementById('pincodeHint').textContent = 'We currently ship within Kerala only.';
+}
+buildCollections();
+buildLetters();
+renderTotals();
+</script>
+</body>
+</html>
