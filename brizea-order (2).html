@@ -184,18 +184,10 @@
     font-family:'Cormorant Garamond', serif; font-size:26px; font-weight:600; opacity:1;
   }
 
-  .pay-options{display:flex; gap:10px; margin-bottom:18px;}
-  .pay-toggle{
-    flex:1; padding:10px 12px; text-align:center; border:1px solid var(--ink);
-    border-radius:2px; cursor:pointer; font-family:'Special Elite', monospace; font-size:12px;
-    letter-spacing:0.05em; text-transform:uppercase;
-  }
-  .pay-toggle.active{background:var(--wine); color:var(--parchment); border-color:var(--wine);}
-  #qrPanel{text-align:center; padding:20px 0 6px;}
+  #qrPanel{text-align:center; padding:14px 0 6px;}
   #qrcode{display:inline-block; padding:12px; background:#fff; border-radius:4px; box-shadow:var(--shadow);}
   .qr-amount{font-family:'Special Elite', monospace; margin-top:10px; font-size:14px;}
   .qr-hint{font-size:13px; font-style:italic; opacity:0.65; margin-top:6px;}
-  .cod-note{font-size:14px; font-style:italic; opacity:0.75; padding:14px 0;}
 
   .policy-box{
     max-height:230px; overflow-y:auto; padding:14px 16px;
@@ -266,7 +258,7 @@
   <!-- ================= LETTERS ================= -->
   <section>
     <div class="section-head"><span class="section-num">II.</span><h2>Letter Writing</h2></div>
-    <div class="section-note">Handwritten on premium paper. Choose a length, then write your message below.</div>
+    <div class="section-note">Handwritten on A5 paper. Choose a length, then write your message below.</div>
     <div class="collection" id="letters"></div>
   </section>
 
@@ -314,17 +306,11 @@
   <!-- ================= PAYMENT ================= -->
   <section>
     <div class="section-head"><span class="section-num">IV.</span><h2>Payment</h2></div>
-    <div class="pay-options">
-      <div class="pay-toggle active" id="toggleUpi" onclick="setPayMode('upi')">Pay by UPI</div>
-      <div class="pay-toggle" id="toggleCod" onclick="setPayMode('cod')">Cash on Delivery</div>
-    </div>
+    <div class="section-note">Scan to pay via UPI, then tap Place Order — we'll open WhatsApp for you to send your payment screenshot.</div>
     <div id="qrPanel">
       <div id="qrcode"></div>
       <div class="qr-amount">Scan &amp; pay <span id="qrAmountText">₹0</span></div>
       <div class="qr-hint">Opens your UPI app on mobile, or scan with any UPI app.</div>
-    </div>
-    <div id="codPanel" class="cod-note" style="display:none;">
-      Pay in cash when your order is delivered. A small COD fee may apply depending on the courier.
     </div>
   </section>
 
@@ -370,9 +356,9 @@
   <div id="confirmCard">
     <h3>Order received</h3>
     <p id="confirmOrderId"></p>
-    <p>A confirmation has been sent to your email. We'll reach out on WhatsApp/phone before shipping.</p>
+    <p>A confirmation has been sent to your email. Complete your payment on WhatsApp and send us a screenshot to confirm your order.</p>
     <div class="confirm-actions">
-      <a href="#" id="waConfirmLink" target="_blank">Confirm on WhatsApp</a>
+      <a href="#" id="waConfirmLink" target="_blank">Open WhatsApp to Pay</a>
     </div>
   </div>
 
@@ -388,19 +374,19 @@
    ====================================================================== */
 const CONFIG = {
   // Your UPI ID, e.g. "brizea@okhdfcbank" or your phone-linked UPI ID
-  UPI_ID: "abhinayags04@oksbi",
+  UPI_ID: "YOUR_UPI_ID@bank",
   // Name that should show up in the customer's UPI app when they pay
   PAYEE_NAME: "BRIZEA",
   // Your WhatsApp number in international format, no +, no spaces, e.g. "919812345678"
-  WHATSAPP_NUMBER: "8590480200",
+  WHATSAPP_NUMBER: "91XXXXXXXXXX",
   // Flat shipping fee in rupees. Set to 0 if you want free shipping.
-  SHIPPING_FEE: 65,
+  SHIPPING_FEE: 49,
   // Order total (in rupees) at or above which shipping becomes free. Set to null to disable.
   FREE_SHIPPING_ABOVE: 499,
   // Set to true to only accept orders with a Kerala delivery pincode.
   KERALA_ONLY: true,
   // Paste the Web App URL you get after deploying the Apps Script (see setup guide).
-  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyNJsChJFGjWueJ9yYNhKI22mVh7LfsEwK7jNtb75OJeq20Ot9v6tksl_i-voGydeos/exec"
+  APPS_SCRIPT_URL: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
 };
 
 // Bracelet collections. Rename/reprice freely.
@@ -412,11 +398,15 @@ const COLLECTIONS = [
   { id:"starlight", name:"Starlight Collection", subtitle:"Constellation", price:99,  color:"#B8863B", image:"starlight.jpg" },
 ];
 
-// Letter writing tiers. wordLimit is enforced on the message box.
+// Letter writing tiers (A5 paper). wordLimit is enforced on the message box.
 const LETTER_TIERS = [
-  { id:"l199", label:"1 handwritten A4 page",        wordRange:"approx. 250–350 words",   price:199, wordLimit:350 },
-  { id:"l299", label:"Up to 3 handwritten A4 pages",  wordRange:"approx. 750–1,050 words", price:299, wordLimit:1050 },
+  { id:"l179", label:"1 A5 page",  wordRange:"120 words", price:179, wordLimit:120 },
+  { id:"l279", label:"2 A5 pages", wordRange:"240 words", price:279, wordLimit:240 },
+  { id:"l349", label:"3 A5 pages", wordRange:"360 words", price:349, wordLimit:360 },
 ];
+
+// Ribbon rose add-on (only offered when a letter is chosen). Max 1 per order.
+const ROSE = { price:25, colors:["Red","Cream","Black"] };
 
 /* ====================== everything below just runs the page ====================== */
 
@@ -462,12 +452,27 @@ function buildLetters(){
         <span><strong>₹${t.price}</strong> — ${t.label} <em>(${t.wordRange})</em></span>
       </label>`;
   });
+  const roseColorInputs = ROSE.colors.map((c,i)=>`
+      <label style="display:inline-flex; align-items:center; gap:6px; margin-right:16px; font-size:14px; cursor:pointer;">
+        <input type="radio" name="roseColor" value="${c}" ${i===0?'checked':''} onchange="updateRoseColor()"> ${c}
+      </label>`).join('');
+
   wrap.innerHTML = `
     ${optionsHtml}
     <div id="letterMessageBox" style="display:none;">
       <div class="section-note" style="margin:14px 0 8px;">Submitted text may be lightly edited for grammar, spelling, punctuation, readability, or formatting — unless you ask us to keep it exactly as written.</div>
       <textarea id="letterMessage" placeholder="Write the message you'd like handwritten..." oninput="updateWordCount()"></textarea>
       <div id="wordCountLabel" class="section-note" style="margin:6px 0 0;">0 words</div>
+
+      <div id="roseBox" style="margin-top:18px; padding-top:14px; border-top:1px dashed var(--paper-line);">
+        <label class="letter-option" style="border-top:none; padding-top:0;">
+          <input type="checkbox" id="roseCheckbox" onchange="toggleRose()">
+          <span>Add a ribbon rose — <strong>+₹${ROSE.price}</strong> (1 per order)</span>
+        </label>
+        <div id="roseColorRow" style="display:none; margin-top:8px; padding-left:30px;">
+          ${roseColorInputs}
+        </div>
+      </div>
     </div>
   `;
 }
@@ -478,11 +483,36 @@ function selectLetterTier(id){
   const box = document.getElementById('letterMessageBox');
   if(!currentLetterTier){
     box.style.display = 'none';
+    delete state.items['rose'];
+    const roseCb = document.getElementById('roseCheckbox');
+    if(roseCb){ roseCb.checked = false; }
+    const roseRow = document.getElementById('roseColorRow');
+    if(roseRow){ roseRow.style.display = 'none'; }
   } else {
     box.style.display = 'block';
     state.items['letter__'+currentLetterTier.id] = { label: currentLetterTier.label, price: currentLetterTier.price, qty: 1, color: '#6B2737' };
     updateWordCount();
   }
+  renderThread();
+  renderTotals();
+}
+
+function toggleRose(){
+  const checked = document.getElementById('roseCheckbox').checked;
+  document.getElementById('roseColorRow').style.display = checked ? 'block' : 'none';
+  if(checked){
+    updateRoseColor();
+  } else {
+    delete state.items['rose'];
+    renderThread();
+    renderTotals();
+  }
+}
+
+function updateRoseColor(){
+  const selected = document.querySelector('input[name="roseColor"]:checked');
+  const color = selected ? selected.value : ROSE.colors[0];
+  state.items['rose'] = { label: `Ribbon Rose (${color})`, price: ROSE.price, qty: 1, color: '#B4776A' };
   renderThread();
   renderTotals();
 }
@@ -528,15 +558,6 @@ function shippingFee(items){
   if(items === 0) return 0;
   if(CONFIG.FREE_SHIPPING_ABOVE !== null && items >= CONFIG.FREE_SHIPPING_ABOVE) return 0;
   return CONFIG.SHIPPING_FEE;
-}
-
-let payMode = 'upi';
-function setPayMode(mode){
-  payMode = mode;
-  document.getElementById('toggleUpi').classList.toggle('active', mode==='upi');
-  document.getElementById('toggleCod').classList.toggle('active', mode==='cod');
-  document.getElementById('qrPanel').style.display = mode==='upi' ? 'block' : 'none';
-  document.getElementById('codPanel').style.display = mode==='cod' ? 'block' : 'none';
 }
 
 function renderTotals(){
@@ -615,7 +636,7 @@ async function submitOrder(){
   const payload = {
     orderId, name, phone, email, address, pincode, note,
     items: itemLines, itemsTotal: items, shipping: ship, total,
-    paymentMode: payMode==='upi' ? 'UPI' : 'Cash on Delivery',
+    paymentMode: 'UPI',
     timestamp: new Date().toISOString()
   };
 
@@ -641,11 +662,14 @@ async function submitOrder(){
 function showConfirmation(orderId, payload, itemLines){
   document.getElementById('confirmOrderId').textContent = `Order #${orderId} · ₹${payload.total}`;
   const waText = encodeURIComponent(
-    `Hi BRIZEA! I just placed order #${orderId}.\n${itemLines.join('\n')}\nTotal: ₹${payload.total} (${payload.paymentMode})\nName: ${payload.name}\nAddress: ${payload.address}, ${payload.pincode}`
+    `Hi BRIZEA! I just placed order #${orderId}.\n${itemLines.join('\n')}\nTotal payable: ₹${payload.total}\nI'll pay this via the UPI QR on your order page and share my payment screenshot here.\nName: ${payload.name}\nAddress: ${payload.address}, ${payload.pincode}`
   );
-  document.getElementById('waConfirmLink').href = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waText}`;
+  const waLink = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waText}`;
+  document.getElementById('waConfirmLink').href = waLink;
   document.getElementById('confirmCard').style.display = 'block';
   document.getElementById('confirmCard').scrollIntoView({behavior:'smooth', block:'center'});
+  // Automatically open WhatsApp with the total payable, ready for the customer to send
+  window.location.href = waLink;
 }
 
 // init
