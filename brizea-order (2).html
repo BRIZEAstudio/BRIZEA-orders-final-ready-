@@ -306,7 +306,7 @@
   <!-- ================= PAYMENT ================= -->
   <section>
     <div class="section-head"><span class="section-num">IV.</span><h2>Payment</h2></div>
-    <div class="section-note">Scan to pay via UPI, then tap Place Order — we'll open WhatsApp for you to send your payment screenshot.</div>
+    <div class="section-note">Scan the QR to pay via UPI, or place your order and we'll send you the payment details on WhatsApp.</div>
     <div id="qrPanel">
       <div id="qrcode"></div>
       <div class="qr-amount">Scan &amp; pay <span id="qrAmountText">₹0</span></div>
@@ -356,10 +356,7 @@
   <div id="confirmCard">
     <h3>Order received</h3>
     <p id="confirmOrderId"></p>
-    <p>A confirmation has been sent to your email. Complete your payment on WhatsApp and send us a screenshot to confirm your order.</p>
-    <div class="confirm-actions">
-      <a href="#" id="waConfirmLink" target="_blank">Open WhatsApp to Pay</a>
-    </div>
+    <p>A confirmation has been sent to your email. We'll reach out on WhatsApp with payment details shortly.</p>
   </div>
 
   <footer>
@@ -374,19 +371,19 @@
    ====================================================================== */
 const CONFIG = {
   // Your UPI ID, e.g. "brizea@okhdfcbank" or your phone-linked UPI ID
-  UPI_ID: "abhinayags04@oksbi",
+  UPI_ID: "YOUR_UPI_ID@bank",
   // Name that should show up in the customer's UPI app when they pay
   PAYEE_NAME: "BRIZEA",
   // Your WhatsApp number in international format, no +, no spaces, e.g. "919812345678"
-  WHATSAPP_NUMBER: "+91 8590480200",
+  WHATSAPP_NUMBER: "91XXXXXXXXXX",
   // Flat shipping fee in rupees. Set to 0 if you want free shipping.
-  SHIPPING_FEE: 65,
+  SHIPPING_FEE: 49,
   // Order total (in rupees) at or above which shipping becomes free. Set to null to disable.
   FREE_SHIPPING_ABOVE: 499,
   // Set to true to only accept orders with a Kerala delivery pincode.
   KERALA_ONLY: true,
   // Paste the Web App URL you get after deploying the Apps Script (see setup guide).
-  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyNJsChJFGjWueJ9yYNhKI22mVh7LfsEwK7jNtb75OJeq20Ot9v6tksl_i-voGydeos/exec"
+  APPS_SCRIPT_URL: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
 };
 
 // Bracelet collections. Rename/reprice freely.
@@ -661,15 +658,8 @@ async function submitOrder(){
 
 function showConfirmation(orderId, payload, itemLines){
   document.getElementById('confirmOrderId').textContent = `Order #${orderId} · ₹${payload.total}`;
-  const waText = encodeURIComponent(
-    `Hi BRIZEA! I just placed order #${orderId}.\n${itemLines.join('\n')}\nTotal payable: ₹${payload.total}\nI'll pay this via the UPI QR on your order page and share my payment screenshot here.\nName: ${payload.name}\nAddress: ${payload.address}, ${payload.pincode}`
-  );
-  const waLink = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waText}`;
-  document.getElementById('waConfirmLink').href = waLink;
   document.getElementById('confirmCard').style.display = 'block';
   document.getElementById('confirmCard').scrollIntoView({behavior:'smooth', block:'center'});
-  // Automatically open WhatsApp with the total payable, ready for the customer to send
-  window.location.href = waLink;
 }
 
 // init
