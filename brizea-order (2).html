@@ -11,7 +11,6 @@
   :root{
     --ink:#2B2420;
     --parchment:#EDE6D3;
-    --parchment-deep:#E1D8BF;
     --wine:#6B2737;
     --wine-deep:#511E2A;
     --ochre:#B8863B;
@@ -38,195 +37,80 @@
   .wrap{max-width:660px;margin:0 auto;padding:36px 20px 80px;}
 
   header{text-align:center;margin-bottom:34px;position:relative;}
-  .eyebrow{
-    font-family:'Special Elite', monospace;
-    font-size:11px;
-    letter-spacing:0.28em;
-    text-transform:uppercase;
-    color:var(--wine);
-    opacity:0.85;
-  }
-  h1{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:600;
-    font-size:52px;
-    margin:6px 0 4px;
-    letter-spacing:0.02em;
-  }
-  .tagline{
-    font-style:italic;
-    font-size:16px;
-    color:var(--ink);
-    opacity:0.72;
-  }
-  .rule{
-    width:120px;height:1px;margin:18px auto 0;
-    background:linear-gradient(90deg, transparent, var(--ochre), transparent);
-  }
+  .eyebrow{font-family:'Special Elite', monospace; font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--wine); opacity:0.85;}
+  h1{font-family:'Cormorant Garamond', serif; font-weight:600; font-size:52px; margin:6px 0 4px; letter-spacing:0.02em;}
+  .tagline{font-style:italic; font-size:16px; color:var(--ink); opacity:0.72;}
+  .rule{width:120px;height:1px;margin:18px auto 0; background:linear-gradient(90deg, transparent, var(--ochre), transparent);}
 
-  .thread-box{
-    margin:28px 0 8px;
-    padding:18px 16px 14px;
-    background:rgba(255,255,255,0.35);
-    border:1px solid var(--paper-line);
-    border-radius:2px;
-  }
-  .thread-label{
-    font-family:'Special Elite', monospace;
-    font-size:10.5px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--sage);
-    margin-bottom:10px;
-  }
-  .thread{
-    position:relative;
-    height:34px;
-    display:flex;
-    align-items:center;
-    gap:0;
-  }
-  .thread::before{
-    content:"";
-    position:absolute;
-    left:0;right:0;top:50%;
-    height:1px;
-    background:var(--ink);
-    opacity:0.25;
-    transform:translateY(-50%);
-  }
-  .bead{
-    width:20px;height:20px;border-radius:50%;
-    margin-right:-4px;
-    border:1.5px solid rgba(43,36,32,0.35);
-    box-shadow: 0 1px 2px rgba(43,36,32,0.25);
-    position:relative;
-    animation: drop 0.35s ease;
-    flex-shrink:0;
-  }
+  .thread-box{margin:28px 0 8px; padding:18px 16px 14px; background:rgba(255,255,255,0.35); border:1px solid var(--paper-line); border-radius:2px;}
+  .thread-label{font-family:'Special Elite', monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--sage); margin-bottom:10px;}
+  .thread{position:relative; height:34px; display:flex; align-items:center; gap:0;}
+  .thread::before{content:""; position:absolute; left:0;right:0;top:50%; height:1px; background:var(--ink); opacity:0.25; transform:translateY(-50%);}
+  .bead{width:20px;height:20px;border-radius:50%; margin-right:-4px; border:1.5px solid rgba(43,36,32,0.35); box-shadow: 0 1px 2px rgba(43,36,32,0.25); position:relative; animation: drop 0.35s ease; flex-shrink:0;}
   @keyframes drop{ from{transform:translateY(-10px); opacity:0;} to{transform:translateY(0); opacity:1;} }
   .thread-empty{font-style:italic;opacity:0.5;font-size:14px;}
 
   section{margin-top:38px;}
-  .section-head{
-    display:flex;align-items:baseline;gap:10px;margin-bottom:16px;
-    border-bottom:1px solid var(--paper-line);
-    padding-bottom:8px;
-  }
-  .section-num{
-    font-family:'Special Elite', monospace;
-    font-size:12px;color:var(--ochre);
-  }
-  h2{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:600;
-    font-size:26px;
-    margin:0;
-  }
+  .section-head{display:flex;align-items:baseline;gap:10px;margin-bottom:16px; border-bottom:1px solid var(--paper-line); padding-bottom:8px;}
+  .section-num{font-family:'Special Elite', monospace; font-size:12px;color:var(--ochre);}
+  h2{font-family:'Cormorant Garamond', serif; font-weight:600; font-size:26px; margin:0;}
   .section-note{font-size:13.5px; font-style:italic; opacity:0.65; margin:-8px 0 16px;}
 
-  .collection{
-    background:rgba(255,255,255,0.4);
-    border:1px solid var(--paper-line);
-    border-radius:3px;
-    padding:16px 18px;
-    margin-bottom:14px;
-  }
-  .collection-img{
-    width:100%; max-height:190px; object-fit:cover; border-radius:2px; margin-bottom:12px; display:block;
-  }
-  .collection-top{
-    display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;
-  }
+  .collection{background:rgba(255,255,255,0.4); border:1px solid var(--paper-line); border-radius:3px; padding:16px 18px; margin-bottom:14px;}
+  .collection-img{width:100%; max-height:190px; object-fit:cover; border-radius:2px; margin-bottom:12px; display:block;}
+  .collection-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
   .collection-name{font-family:'Cormorant Garamond', serif; font-weight:600; font-size:20px;}
   .collection-poem{font-style:italic; font-size:13.5px; opacity:0.65; margin:2px 0 0;}
   .tier-price{font-family:'Special Elite', monospace; font-size:14px; color:var(--wine); white-space:nowrap;}
+  .tier-row{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-top:1px dashed var(--paper-line); font-size:15px;}
+  .tier-row:first-of-type{border-top:none;}
+  .tier-name{opacity:0.85;}
   .qty-stepper{display:flex; align-items:center; gap:0;}
-  .qty-stepper button{
-    width:26px;height:26px;border:1px solid var(--ink);background:transparent;
-    color:var(--ink); font-size:15px; cursor:pointer; border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    transition:background 0.15s;
-  }
+  .qty-stepper button{width:26px;height:26px;border:1px solid var(--ink);background:transparent; color:var(--ink); font-size:15px; cursor:pointer; border-radius:50%; display:flex;align-items:center;justify-content:center; transition:background 0.15s;}
   .qty-stepper button:hover{background:var(--ink); color:var(--parchment);}
   .qty-stepper span{width:28px;text-align:center;font-family:'Special Elite',monospace;font-size:14px;}
 
-  .letter-option{
-    display:flex; align-items:flex-start; gap:10px; padding:10px 0;
-    border-top:1px dashed var(--paper-line); font-size:15px; cursor:pointer;
-  }
+  .letter-option{display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-top:1px dashed var(--paper-line); font-size:15px; cursor:pointer;}
   .letter-option:first-of-type{border-top:none;}
   .letter-option input{margin-top:4px;}
-  #letterMessage{min-height:120px;}
+  #letterMessage, #poetryMessage{min-height:100px;}
 
   .field{margin-bottom:16px;}
   label{display:block; font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase; font-family:'Special Elite', monospace; color:var(--sage); margin-bottom:6px;}
-  input[type=text], input[type=email], input[type=tel], textarea, select{
+  input[type=text], input[type=email], input[type=tel], textarea{
     width:100%; padding:10px 12px; border:1px solid var(--paper-line);
     background:rgba(255,255,255,0.55); font-family:'EB Garamond', serif; font-size:16px;
     color:var(--ink); border-radius:2px; outline:none;
   }
-  input:focus, textarea:focus, select:focus{border-color:var(--wine); box-shadow:0 0 0 3px rgba(107,39,55,0.1);}
+  input:focus, textarea:focus{border-color:var(--wine); box-shadow:0 0 0 3px rgba(107,39,55,0.1);}
   textarea{resize:vertical; min-height:70px;}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
   @media (max-width:520px){ .grid2{grid-template-columns:1fr;} }
 
-  .total-box{
-    margin-top:30px;
-    padding:20px;
-    border:1.5px solid var(--ink);
-    border-radius:3px;
-    background:rgba(255,255,255,0.5);
-  }
+  .total-box{margin-top:30px; padding:20px; border:1.5px solid var(--ink); border-radius:3px; background:rgba(255,255,255,0.5);}
   .total-line{display:flex; justify-content:space-between; font-size:15px; padding:5px 0; opacity:0.8;}
-  .total-line.grand{
-    border-top:1px solid var(--ink); margin-top:8px; padding-top:12px;
-    font-family:'Cormorant Garamond', serif; font-size:26px; font-weight:600; opacity:1;
-  }
+  .total-line.grand{border-top:1px solid var(--ink); margin-top:8px; padding-top:12px; font-family:'Cormorant Garamond', serif; font-size:26px; font-weight:600; opacity:1;}
 
   #qrPanel{text-align:center; padding:14px 0 6px;}
   #qrcode{display:inline-block; padding:12px; background:#fff; border-radius:4px; box-shadow:var(--shadow);}
   .qr-amount{font-family:'Special Elite', monospace; margin-top:10px; font-size:14px;}
   .qr-hint{font-size:13px; font-style:italic; opacity:0.65; margin-top:6px;}
 
-  .policy-box{
-    max-height:230px; overflow-y:auto; padding:14px 16px;
-    background:rgba(255,255,255,0.4); border:1px solid var(--paper-line);
-    border-radius:3px; font-size:13.5px; line-height:1.55;
-  }
+  .policy-box{max-height:230px; overflow-y:auto; padding:14px 16px; background:rgba(255,255,255,0.4); border:1px solid var(--paper-line); border-radius:3px; font-size:13.5px; line-height:1.55;}
   .policy-box p{margin:0 0 12px;}
   .checkbox-row{display:flex; align-items:flex-start; gap:10px; margin-top:14px; font-size:14px; cursor:pointer;}
   .checkbox-row input{margin-top:3px;}
 
-  .seal-btn{
-    display:block; width:100%; margin-top:26px; padding:16px;
-    background:var(--wine); color:var(--parchment); border:none; border-radius:3px;
-    font-family:'Cormorant Garamond', serif; font-size:20px; font-weight:600;
-    letter-spacing:0.03em; cursor:pointer; transition:background 0.2s, transform 0.1s;
-  }
+  .seal-btn{display:block; width:100%; margin-top:26px; padding:16px; background:var(--wine); color:var(--parchment); border:none; border-radius:3px; font-family:'Cormorant Garamond', serif; font-size:20px; font-weight:600; letter-spacing:0.03em; cursor:pointer; transition:background 0.2s, transform 0.1s;}
   .seal-btn:hover{background:var(--wine-deep);}
   .seal-btn:active{transform:scale(0.99);}
   .seal-btn:disabled{opacity:0.5; cursor:not-allowed;}
   .status-msg{margin-top:12px; font-size:14px; text-align:center; min-height:20px;}
 
-  #confirmCard{
-    display:none; margin-top:26px; padding:26px;
-    background:rgba(255,255,255,0.55); border:1px solid var(--ink); border-radius:3px;
-    text-align:center;
-    position:relative;
-  }
-  #confirmCard::before{
-    content:"✦";
-    display:block; font-size:22px; color:var(--ochre); margin-bottom:8px;
-  }
+  #confirmCard{display:none; margin-top:26px; padding:26px; background:rgba(255,255,255,0.55); border:1px solid var(--ink); border-radius:3px; text-align:center; position:relative;}
+  #confirmCard::before{content:"✦"; display:block; font-size:22px; color:var(--ochre); margin-bottom:8px;}
   #confirmCard h3{font-family:'Cormorant Garamond', serif; font-size:24px; margin:0 0 6px;}
   #confirmCard p{font-size:14.5px; opacity:0.8; margin:4px 0;}
-  .confirm-actions{margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
-  .confirm-actions a{
-    font-family:'Special Elite', monospace; font-size:12px; text-decoration:none;
-    border:1px solid var(--ink); padding:9px 16px; border-radius:2px; color:var(--ink);
-  }
-  .confirm-actions a:hover{background:var(--ink); color:var(--parchment);}
 
   footer{margin-top:50px; text-align:center; font-size:12px; opacity:0.55;}
 </style>
@@ -243,69 +127,84 @@
 
   <div class="thread-box">
     <div class="thread-label">Your order, as you build it</div>
-    <div class="thread" id="thread">
-      <span class="thread-empty">nothing chosen yet — pick a collection below</span>
-    </div>
+    <div class="thread" id="thread"><span class="thread-empty">nothing chosen yet — pick something below</span></div>
   </div>
 
-  <!-- ================= COLLECTIONS ================= -->
+  <!-- ================= SINGLE BRACELETS ================= -->
   <section>
     <div class="section-head"><span class="section-num">I.</span><h2>Keepsake Bracelets</h2></div>
-    <div class="section-note">Each collection is handcrafted in small batches.</div>
-    <div id="collections"></div>
+    <div class="section-note">Each piece handcrafted individually.</div>
+    <div id="singleBracelets"></div>
+  </section>
+
+  <!-- ================= COMBO PACKS ================= -->
+  <section>
+    <div class="section-head"><span class="section-num">II.</span><h2>Keepsakes Combo Packs</h2></div>
+    <div class="section-note">Bundled sets at a special price.</div>
+    <div id="comboPacks"></div>
+  </section>
+
+  <!-- ================= POETRY CARD ================= -->
+  <section id="poetrySectionWrap" style="display:none;">
+    <div class="section-head"><span class="section-num">III.</span><h2>Poetry Card</h2></div>
+    <div class="section-note">An optional add-on for any bracelet order.</div>
+    <div class="collection">
+      <label class="letter-option" style="border-top:none; padding-top:0;">
+        <input type="radio" name="poetryChoice" value="none" checked onchange="selectPoetry('none')">
+        <span>No poetry card</span>
+      </label>
+      <label class="letter-option">
+        <input type="radio" name="poetryChoice" value="generic" onchange="selectPoetry('generic')">
+        <span><strong>+₹5</strong> — Generic Poetry Card <em>(a Brizea original, not personalized)</em></span>
+      </label>
+      <label class="letter-option">
+        <input type="radio" name="poetryChoice" value="custom" onchange="selectPoetry('custom')">
+        <span><strong>+₹10</strong> — Custom Poetry Card <em>(your message, up to 15 words)</em></span>
+      </label>
+      <div id="poetryCustomBox" style="display:none; margin-top:12px;">
+        <textarea id="poetryMessage" placeholder="Write your message (max 15 words)..." oninput="updatePoetryWordCount()"></textarea>
+        <div id="poetryWordCountLabel" class="section-note" style="margin:6px 0 0;">0 / 15 words</div>
+      </div>
+    </div>
   </section>
 
   <!-- ================= LETTERS ================= -->
   <section>
-    <div class="section-head"><span class="section-num">II.</span><h2>Letter Writing</h2></div>
+    <div class="section-head"><span class="section-num">IV.</span><h2>Letter Writing</h2></div>
     <div class="section-note">Handwritten on A5 paper. Choose a length, then write your message below.</div>
     <div class="collection" id="letters"></div>
   </section>
 
   <!-- ================= DETAILS ================= -->
   <section>
-    <div class="section-head"><span class="section-num">III.</span><h2>Your Details</h2></div>
-    <div class="field">
-      <label>Full name</label>
-      <input type="text" id="custName" required>
-    </div>
+    <div class="section-head"><span class="section-num">V.</span><h2>Your Details</h2></div>
+    <div class="field"><label>Full name</label><input type="text" id="custName" required></div>
     <div class="grid2">
-      <div class="field">
-        <label>Phone (for delivery updates)</label>
-        <input type="tel" id="custPhone" required>
-      </div>
-      <div class="field">
-        <label>Email (for order confirmation)</label>
-        <input type="email" id="custEmail" required>
-      </div>
+      <div class="field"><label>Phone (for delivery updates)</label><input type="tel" id="custPhone" required></div>
+      <div class="field"><label>Email (for order confirmation)</label><input type="email" id="custEmail" required></div>
     </div>
-    <div class="field">
-      <label>Delivery address</label>
-      <textarea id="custAddress" required placeholder="House/street, locality, city, state"></textarea>
-    </div>
+    <div class="field"><label>Delivery address</label><textarea id="custAddress" required placeholder="House/street, locality, city, state"></textarea></div>
     <div class="grid2">
       <div class="field">
         <label>Pincode</label>
         <input type="text" id="custPincode" required>
         <div id="pincodeHint" class="section-note" style="margin:6px 0 0;"></div>
       </div>
-      <div class="field">
-        <label>Note for us (optional)</label>
-        <input type="text" id="custNote" placeholder="e.g. gift wrap">
-      </div>
+      <div class="field"><label>Note for us (optional)</label><input type="text" id="custNote" placeholder="e.g. gift wrap"></div>
     </div>
   </section>
 
   <!-- ================= TOTAL ================= -->
   <div class="total-box">
     <div class="total-line"><span>Items</span><span id="sumItems">₹0</span></div>
+    <div class="total-line" id="discountLine" style="display:none;"><span>Combo discount</span><span id="sumDiscount">-₹0</span></div>
     <div class="total-line"><span id="shipLabel">Shipping</span><span id="sumShip">₹0</span></div>
     <div class="total-line grand"><span>Total</span><span id="sumTotal">₹0</span></div>
   </div>
 
   <!-- ================= PAYMENT ================= -->
   <section>
-    <div class="section-head"><span class="section-num">IV.</span><h2>Payment</h2></div>
+    <div class="section-head"><span class="section-num">VI.</span><h2>Payment</h2></div>
     <div class="section-note">Scan the QR to pay via UPI, or place your order and we'll send you the payment details on WhatsApp.</div>
     <div id="qrPanel">
       <div id="qrcode"></div>
@@ -316,7 +215,7 @@
 
   <!-- ================= POLICIES ================= -->
   <section>
-    <div class="section-head"><span class="section-num">V.</span><h2>Policies</h2></div>
+    <div class="section-head"><span class="section-num">VII.</span><h2>Policies</h2></div>
     <div class="policy-box">
       <p>At BRIZEA, every keepsake and letter is handcrafted with care and created specifically for you. By placing an order with BRIZEA, you acknowledge that you have read and agreed to the following policies.</p>
       <p><strong>1. Customer Responsibility</strong><br>
@@ -359,9 +258,7 @@
     <p>A confirmation has been sent to your email. We'll reach out on WhatsApp with payment details shortly.</p>
   </div>
 
-  <footer>
-    BRIZEA &middot; Shipped via Shiprocket
-  </footer>
+  <footer>BRIZEA &middot; Shipped via Shiprocket</footer>
 
 </div>
 
@@ -370,29 +267,40 @@
    EDIT THESE — everything you need to personalise lives in this block
    ====================================================================== */
 const CONFIG = {
-  // Your UPI ID, e.g. "brizea@okhdfcbank" or your phone-linked UPI ID
-  UPI_ID: "abhinayags04@oksbi",
-  // Name that should show up in the customer's UPI app when they pay
+  UPI_ID: "YOUR_UPI_ID@bank",
   PAYEE_NAME: "BRIZEA",
-  // Your WhatsApp number in international format, no +, no spaces, e.g. "919812345678"
-  WHATSAPP_NUMBER: "918590480200",
-  // Flat shipping fee in rupees. Set to 0 if you want free shipping.
+  WHATSAPP_NUMBER: "91XXXXXXXXXX",
   SHIPPING_FEE: 65,
-  // Order total (in rupees) at or above which shipping becomes free. Set to null to disable.
   FREE_SHIPPING_ABOVE: 499,
-  // Set to true to only accept orders with a Kerala delivery pincode.
   KERALA_ONLY: true,
-  // Paste the Web App URL you get after deploying the Apps Script (see setup guide).
-  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbybP4N9C3fgyuC_GSMbqeooHn7tcK4XYT-C_RvpiPmACP7E1bY6-NGR8tQ1RH3-3ZA5/exec"
+  APPS_SCRIPT_URL: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"
 };
 
-// Bracelet collections. Rename/reprice freely.
-// "image" is a filename — upload a photo with this exact name to the same
-// GitHub repo and it'll show automatically. If it's missing, nothing breaks.
-const COLLECTIONS = [
-  { id:"aurora",    name:"Aurora Collection",    subtitle:"Bundle of 6",   price:120, color:"#6B2737", image:"aurora.jpg" },
-  { id:"seaside",   name:"Seaside Collection",   subtitle:"Summer Tide",   price:80,  color:"#55624A", image:"seaside.jpg" },
-  { id:"starlight", name:"Starlight Collection", subtitle:"Constellation", price:99,  color:"#B8863B", image:"starlight.jpg" },
+// Single bracelets. "image" = filename to upload with this exact name to the GitHub repo.
+const SINGLE_BRACELETS = [
+  { id:"summer-tide",    name:"Summer Tide",     price:65, color:"#55624A", image:"summer-tide.jpg" },
+  { id:"violet-night",   name:"Violet Night",    price:85, color:"#6B2737", image:"violet-night.jpg" },
+  { id:"sea-glass",      name:"Sea Glass",       price:85, color:"#4A5A63", image:"sea-glass.jpg" },
+  { id:"starblush",      name:"Starblush",       price:85, color:"#B4776A", image:"starblush.jpg" },
+  { id:"midnight-bloom", name:"Midnight Bloom",  price:85, color:"#511E2A", image:"midnight-bloom.jpg" },
+  { id:"coastal-sunset", name:"Coastal Sunset",  price:85, color:"#B8863B", image:"coastal-sunset.jpg" },
+  { id:"midnight-sea",   name:"Midnight Sea",    price:85, color:"#2B4A4A", image:"midnight-sea.jpg" },
+  { id:"afterdark",      name:"Afterdark",       price:85, color:"#2B2420", image:"afterdark.jpg" },
+  { id:"last-night",     name:"Last Night",      price:85, color:"#3D2B4A", image:"last-night.jpg" },
+  { id:"nightfall",      name:"Night Fall",      price:70, color:"#22303A", image:"nightfall.jpg" },
+  { id:"sea-song",       name:"Sea Song",        price:85, color:"#3E6C6C", image:"sea-song.jpg" },
+];
+
+// Combo packs. "original" is shown struck through, "price" is the actual sale price charged.
+const COMBO_PACKS = [
+  { id:"cerulean-wave",   name:"Cerulean Wave",         price:134, original:169, image:"cerulean-wave.jpg" },
+  { id:"twilight-shore",  name:"Twilight Shore",        price:134, original:220, image:"twilight-shore.jpg" },
+  { id:"sapphire-drift",  name:"Sapphire Drift",        price:150, original:200, image:"sapphire-drift.jpg" },
+  { id:"stillwater",      name:"Stillwater Collection", price:110, original:140, image:"stillwater.jpg" },
+  { id:"nocturne-hour",   name:"Nocturne Hour",         price:215, original:252, image:"nocturne-hour.jpg" },
+  { id:"coastal-melody",  name:"Coastal Melody",        price:199, original:259, image:"coastal-melody.jpg" },
+  { id:"lunar-gold",      name:"Lunar Gold",            price:134, original:194, image:"lunar-gold.jpg" },
+  { id:"evening-haze",    name:"Evening Haze",          price:134, original:168, image:"evening-haze.jpg" },
 ];
 
 // Letter writing tiers (A5 paper). wordLimit is enforced on the message box.
@@ -403,35 +311,97 @@ const LETTER_TIERS = [
 ];
 
 // Ribbon rose add-on (only offered when a letter is chosen). Max 1 per order.
-const ROSE = { price:25, colors:["Red","Cream","Black"] };
+const ROSE = { price:25, colors:["Red","Black"] };
+
+// Bracelet + Letter combo pricing
+const LETTER_BRACELET_PRICE = 59;          // price per bracelet when added to a letter order
+const LETTER_COMBO_FLAT_DISCOUNT = 18;     // flat off when a Keepsakes Combo pack is added to a letter order instead
+const LETTER_TIER_DISCOUNTS = { l179:18, l279:18, l349:28 }; // extra flat off (once per order) when single ₹59 bracelets are added
 
 /* ====================== everything below just runs the page ====================== */
 
-const state = { items:{} }; // key -> {label, price, qty, color}
+const state = { items:{} };
 let currentLetterTier = null;
 
-function buildCollections(){
-  const wrap = document.getElementById('collections');
-  COLLECTIONS.forEach(col=>{
+function buildSingleBracelets(){
+  const wrap = document.getElementById('singleBracelets');
+  SINGLE_BRACELETS.forEach(b=>{
     const card = document.createElement('div');
     card.className = 'collection';
+    const key = 'single__'+b.id;
     card.innerHTML = `
-      <img src="${col.image}" class="collection-img" alt="${col.name}" onerror="this.style.display='none'">
+      <img src="${b.image}" class="collection-img" alt="${b.name}" onerror="this.style.display='none'">
       <div class="collection-top">
-        <div>
-          <div class="collection-name">${col.name}</div>
-          <div class="collection-poem">${col.subtitle}</div>
-        </div>
-        <span class="tier-price">₹${col.price}</span>
+        <div class="collection-name">${b.name}</div>
+        <span class="tier-price">₹${b.price}</span>
       </div>
-      <div class="qty-stepper" style="margin-top:12px;">
-        <button onclick="changeQty('${col.id}', -1, '${col.name}', ${col.price}, '${col.color}')">−</button>
-        <span id="qty-${col.id}">0</span>
-        <button onclick="changeQty('${col.id}', 1, '${col.name}', ${col.price}, '${col.color}')">+</button>
-      </div>
-    `;
+      <div class="qty-stepper" style="margin-top:10px;">
+        <button onclick="changeQty('${key}', -1, '${b.name}', ${b.price}, '${b.color}')">−</button>
+        <span id="qty-${key}">0</span>
+        <button onclick="changeQty('${key}', 1, '${b.name}', ${b.price}, '${b.color}')">+</button>
+      </div>`;
     wrap.appendChild(card);
   });
+}
+
+function buildComboPacks(){
+  const wrap = document.getElementById('comboPacks');
+  COMBO_PACKS.forEach(c=>{
+    const card = document.createElement('div');
+    card.className = 'collection';
+    const key = 'combo__'+c.id;
+    card.innerHTML = `
+      <img src="${c.image}" class="collection-img" alt="${c.name}" onerror="this.style.display='none'">
+      <div class="collection-top">
+        <div class="collection-name">${c.name}</div>
+        <span class="tier-price"><span style="text-decoration:line-through; opacity:0.55; margin-right:6px; font-size:12px;">₹${c.original}</span>₹${c.price}</span>
+      </div>
+      <div class="qty-stepper" style="margin-top:10px;">
+        <button onclick="changeQty('${key}', -1, '${c.name}', ${c.price}, '#8A6D3B')">−</button>
+        <span id="qty-${key}">0</span>
+        <button onclick="changeQty('${key}', 1, '${c.name}', ${c.price}, '#8A6D3B')">+</button>
+      </div>`;
+    wrap.appendChild(card);
+  });
+}
+
+function refreshPoetryVisibility(){
+  const hasKeepsake = Object.keys(state.items).some(k => k.startsWith('single__') || k.startsWith('combo__'));
+  const wrap = document.getElementById('poetrySectionWrap');
+  wrap.style.display = hasKeepsake ? 'block' : 'none';
+  if(!hasKeepsake){
+    const noneRadio = document.querySelector('input[name="poetryChoice"][value="none"]');
+    if(noneRadio) noneRadio.checked = true;
+    delete state.items['poetry'];
+    const customBox = document.getElementById('poetryCustomBox');
+    if(customBox) customBox.style.display = 'none';
+  }
+}
+
+function selectPoetry(choice){
+  delete state.items['poetry'];
+  const customBox = document.getElementById('poetryCustomBox');
+  if(choice === 'generic'){
+    state.items['poetry'] = { label:'Generic Poetry Card', price:5, qty:1, color:'#B8863B' };
+    customBox.style.display = 'none';
+  } else if(choice === 'custom'){
+    state.items['poetry'] = { label:'Custom Poetry Card', price:10, qty:1, color:'#B8863B' };
+    customBox.style.display = 'block';
+    updatePoetryWordCount();
+  } else {
+    customBox.style.display = 'none';
+  }
+  renderThread();
+  renderTotals();
+}
+
+function updatePoetryWordCount(){
+  const label = document.getElementById('poetryWordCountLabel');
+  const text = document.getElementById('poetryMessage').value.trim();
+  const words = text ? text.split(/\s+/).length : 0;
+  label.textContent = `${words} / 15 words`;
+  label.style.color = words > 15 ? '#6B2737' : '';
+  label.style.opacity = words > 15 ? '1' : '0.65';
 }
 
 function buildLetters(){
@@ -449,6 +419,7 @@ function buildLetters(){
         <span><strong>₹${t.price}</strong> — ${t.label} <em>(${t.wordRange})</em></span>
       </label>`;
   });
+
   const roseColorInputs = ROSE.colors.map((c,i)=>`
       <label style="display:inline-flex; align-items:center; gap:6px; margin-right:16px; font-size:14px; cursor:pointer;">
         <input type="radio" name="roseColor" value="${c}" ${i===0?'checked':''} onchange="updateRoseColor()"> ${c}
@@ -470,8 +441,71 @@ function buildLetters(){
           ${roseColorInputs}
         </div>
       </div>
+
+      <div id="letterAddonBox" style="margin-top:18px; padding-top:14px; border-top:1px dashed var(--paper-line);">
+        <div class="section-note" style="margin:0 0 8px;">Add bracelets to this letter order at a special combo price.</div>
+        <label class="letter-option" style="border-top:none; padding-top:0;">
+          <input type="radio" name="letterAddon" value="none" checked onchange="selectLetterAddon('none')">
+          <span>No bracelets added</span>
+        </label>
+        <label class="letter-option">
+          <input type="radio" name="letterAddon" value="singles" onchange="selectLetterAddon('singles')">
+          <span>Add single bracelets — <strong>₹${LETTER_BRACELET_PRICE} each</strong></span>
+        </label>
+        <label class="letter-option">
+          <input type="radio" name="letterAddon" value="combo" onchange="selectLetterAddon('combo')">
+          <span>Add a Keepsakes Combo pack instead — <strong>₹${LETTER_COMBO_FLAT_DISCOUNT} off</strong></span>
+        </label>
+        <div id="letterSinglesBox" style="display:none; margin-top:10px;"></div>
+        <div id="letterComboBox" style="display:none; margin-top:10px;"></div>
+      </div>
     </div>
   `;
+  buildLetterAddonLists();
+}
+
+function buildLetterAddonLists(){
+  const singlesWrap = document.getElementById('letterSinglesBox');
+  singlesWrap.innerHTML = SINGLE_BRACELETS.map(b => `
+    <div class="tier-row">
+      <div class="tier-name">${b.name}</div>
+      <div class="qty-stepper">
+        <button onclick="changeQty('ltrbrc__${b.id}', -1, '${b.name} (letter combo)', ${LETTER_BRACELET_PRICE}, '${b.color}')">−</button>
+        <span id="qty-ltrbrc__${b.id}">0</span>
+        <button onclick="changeQty('ltrbrc__${b.id}', 1, '${b.name} (letter combo)', ${LETTER_BRACELET_PRICE}, '${b.color}')">+</button>
+      </div>
+    </div>`).join('');
+
+  const comboWrap = document.getElementById('letterComboBox');
+  comboWrap.innerHTML = COMBO_PACKS.map(c => `
+    <label class="letter-option">
+      <input type="radio" name="letterComboPick" value="${c.id}" onchange="selectLetterCombo('${c.id}')">
+      <span>${c.name} — ₹${c.price}</span>
+    </label>`).join('');
+}
+
+function selectLetterAddon(mode){
+  Object.keys(state.items).forEach(k=>{ if(k.startsWith('ltrbrc__') || k==='ltrcombopack'){ delete state.items[k]; } });
+  document.getElementById('letterSinglesBox').style.display = mode==='singles' ? 'block':'none';
+  document.getElementById('letterComboBox').style.display = mode==='combo' ? 'block':'none';
+  if(mode==='singles'){
+    SINGLE_BRACELETS.forEach(b=>{ const el=document.getElementById('qty-ltrbrc__'+b.id); if(el) el.textContent='0'; });
+  }
+  if(mode!=='combo'){
+    document.querySelectorAll('input[name="letterComboPick"]').forEach(r=>r.checked=false);
+  }
+  renderThread();
+  renderTotals();
+}
+
+function selectLetterCombo(id){
+  delete state.items['ltrcombopack'];
+  const pack = COMBO_PACKS.find(c=>c.id===id);
+  if(pack){
+    state.items['ltrcombopack'] = { label: pack.name+' (letter combo)', price: pack.price, qty:1, color:'#8A6D3B' };
+  }
+  renderThread();
+  renderTotals();
 }
 
 function selectLetterTier(id){
@@ -485,6 +519,13 @@ function selectLetterTier(id){
     if(roseCb){ roseCb.checked = false; }
     const roseRow = document.getElementById('roseColorRow');
     if(roseRow){ roseRow.style.display = 'none'; }
+    Object.keys(state.items).forEach(k=>{ if(k.startsWith('ltrbrc__') || k==='ltrcombopack'){ delete state.items[k]; } });
+    const addonNone = document.querySelector('input[name="letterAddon"][value="none"]');
+    if(addonNone) addonNone.checked = true;
+    const singlesBox = document.getElementById('letterSinglesBox');
+    if(singlesBox) singlesBox.style.display = 'none';
+    const comboBox = document.getElementById('letterComboBox');
+    if(comboBox) comboBox.style.display = 'none';
   } else {
     box.style.display = 'block';
     state.items['letter__'+currentLetterTier.id] = { label: currentLetterTier.label, price: currentLetterTier.price, qty: 1, color: '#6B2737' };
@@ -497,13 +538,8 @@ function selectLetterTier(id){
 function toggleRose(){
   const checked = document.getElementById('roseCheckbox').checked;
   document.getElementById('roseColorRow').style.display = checked ? 'block' : 'none';
-  if(checked){
-    updateRoseColor();
-  } else {
-    delete state.items['rose'];
-    renderThread();
-    renderTotals();
-  }
+  if(checked){ updateRoseColor(); }
+  else { delete state.items['rose']; renderThread(); renderTotals(); }
 }
 
 function updateRoseColor(){
@@ -529,7 +565,9 @@ function changeQty(key, delta, label, price, color){
   current.qty = Math.max(0, current.qty + delta);
   if(current.qty === 0){ delete state.items[key]; }
   else { state.items[key] = current; }
-  document.getElementById(`qty-${key}`).textContent = current.qty || 0;
+  const qtyEl = document.getElementById(`qty-${key}`);
+  if(qtyEl) qtyEl.textContent = current.qty || 0;
+  refreshPoetryVisibility();
   renderThread();
   renderTotals();
 }
@@ -537,11 +575,9 @@ function changeQty(key, delta, label, price, color){
 function renderThread(){
   const thread = document.getElementById('thread');
   const beads = [];
-  Object.values(state.items).forEach(item=>{
-    for(let i=0;i<item.qty;i++){ beads.push(item.color); }
-  });
+  Object.values(state.items).forEach(item=>{ for(let i=0;i<item.qty;i++){ beads.push(item.color); } });
   if(beads.length === 0){
-    thread.innerHTML = '<span class="thread-empty">nothing chosen yet — pick a collection below</span>';
+    thread.innerHTML = '<span class="thread-empty">nothing chosen yet — pick something below</span>';
     return;
   }
   thread.innerHTML = beads.map(c=>`<div class="bead" style="background:${c}"></div>`).join('');
@@ -551,17 +587,30 @@ function itemsTotal(){
   return Object.values(state.items).reduce((s,i)=>s + i.price*i.qty, 0);
 }
 
-function shippingFee(items){
-  if(items === 0) return 0;
-  if(CONFIG.FREE_SHIPPING_ABOVE !== null && items >= CONFIG.FREE_SHIPPING_ABOVE) return 0;
+function computeDiscount(){
+  if(!currentLetterTier) return 0;
+  const hasLtrBrc = Object.keys(state.items).some(k=>k.startsWith('ltrbrc__'));
+  if(hasLtrBrc){ return LETTER_TIER_DISCOUNTS[currentLetterTier.id] || 0; }
+  if(state.items['ltrcombopack']){ return LETTER_COMBO_FLAT_DISCOUNT; }
+  return 0;
+}
+
+function shippingFee(payable){
+  if(payable <= 0) return 0;
+  if(CONFIG.FREE_SHIPPING_ABOVE !== null && payable >= CONFIG.FREE_SHIPPING_ABOVE) return 0;
   return CONFIG.SHIPPING_FEE;
 }
 
 function renderTotals(){
   const items = itemsTotal();
-  const ship = shippingFee(items);
-  const total = items + ship;
+  const discount = computeDiscount();
+  const payable = items - discount;
+  const ship = shippingFee(payable);
+  const total = payable + ship;
+
   document.getElementById('sumItems').textContent = `₹${items}`;
+  document.getElementById('discountLine').style.display = discount>0 ? 'flex' : 'none';
+  document.getElementById('sumDiscount').textContent = `-₹${discount}`;
   document.getElementById('sumShip').textContent = ship===0 ? 'Free' : `₹${ship}`;
   document.getElementById('sumTotal').textContent = `₹${total}`;
   document.getElementById('qrAmountText').textContent = `₹${total}`;
@@ -615,24 +664,41 @@ async function submitOrder(){
     }
   }
 
+  let poetryMessageText = '';
+  const poetryChoiceEl = document.querySelector('input[name="poetryChoice"]:checked');
+  const poetryChoice = poetryChoiceEl ? poetryChoiceEl.value : 'none';
+  if(poetryChoice === 'custom'){
+    poetryMessageText = document.getElementById('poetryMessage').value.trim();
+    const words = poetryMessageText ? poetryMessageText.split(/\s+/).length : 0;
+    if(!poetryMessageText){ status.textContent = 'Please write your custom poetry message.'; return; }
+    if(words > 15){ status.textContent = 'Your custom poetry message is over the 15-word limit.'; return; }
+  }
+
   if(!document.getElementById('policyAgree').checked){
     status.textContent = 'Please agree to our policies before placing your order.';
     return;
   }
 
   const orderId = genOrderId();
-  const ship = shippingFee(items);
-  const total = items + ship;
+  const discount = computeDiscount();
+  const payable = items - discount;
+  const ship = shippingFee(payable);
+  const total = payable + ship;
+
   const itemLines = Object.entries(state.items).map(([key,i])=>{
     if(key.startsWith('letter__') && letterMessageText){
       return `${i.label} — ₹${i.price} | Message: "${letterMessageText}"`;
     }
+    if(key === 'poetry' && poetryMessageText){
+      return `${i.label} — ₹${i.price} | Message: "${poetryMessageText}"`;
+    }
     return `${i.label} x${i.qty} — ₹${i.price*i.qty}`;
   });
+  if(discount > 0){ itemLines.push(`Combo discount: -₹${discount}`); }
 
   const payload = {
     orderId, name, phone, email, address, pincode, note,
-    items: itemLines, itemsTotal: items, shipping: ship, total,
+    items: itemLines, itemsTotal: items, discount, shipping: ship, total,
     paymentMode: 'UPI',
     timestamp: new Date().toISOString()
   };
@@ -649,14 +715,14 @@ async function submitOrder(){
       });
     }
     status.textContent = '';
-    showConfirmation(orderId, payload, itemLines);
+    showConfirmation(orderId, payload);
   }catch(err){
     status.textContent = 'Order recorded, but the automatic confirmation had an issue — we still have your details below.';
-    showConfirmation(orderId, payload, itemLines);
+    showConfirmation(orderId, payload);
   }
 }
 
-function showConfirmation(orderId, payload, itemLines){
+function showConfirmation(orderId, payload){
   document.getElementById('confirmOrderId').textContent = `Order #${orderId} · ₹${payload.total}`;
   document.getElementById('confirmCard').style.display = 'block';
   document.getElementById('confirmCard').scrollIntoView({behavior:'smooth', block:'center'});
@@ -666,7 +732,8 @@ function showConfirmation(orderId, payload, itemLines){
 if(CONFIG.KERALA_ONLY){
   document.getElementById('pincodeHint').textContent = 'We currently ship within Kerala only.';
 }
-buildCollections();
+buildSingleBracelets();
+buildComboPacks();
 buildLetters();
 renderTotals();
 </script>
